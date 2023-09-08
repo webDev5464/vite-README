@@ -272,10 +272,13 @@ import { useEffect, useState } from "react";
 
 export default function App() {
   const [count, setCount] = useState(0);
+
   useEffect(() => {
+
     setTimeout(() => {
       setCount((count) => count + 1);
     }, 1000);
+
   });
 
   return (
@@ -335,10 +338,13 @@ import { useEffect, useState } from "react";
 
 export default function App() {
   const [count, setCount] = useState(0);
+
   useEffect(() => {
+
     setTimeout(() => {
       setCount((count) => count + 1);
     }, 1000);
+    
   }, []); // <- add empty brackets here
 
   return (
@@ -367,6 +373,118 @@ export default function App() {
       <button onClick={() => setCount((c) => c + 1)}>Click!</button>
       <p>calculation {calculation}</p>
     </>
+  );
+}
+```
+
+## 📌 Context
+
+To create context, you must Import `createContext` and initialize it:
+
+**Single Value :**
+
+```js
+import { createContext } from "react";
+import Home from "./pages/home/Home";
+
+export const MyContext = createContext();
+
+export default function App() {
+  const name = "John";
+
+  return (
+    <>
+      <MyContext.Provider value={{ name }}>
+        <Home />
+      </MyContext.Provider>
+    </>
+  );
+}
+```
+
+```js
+import { useContext } from "react";
+import { MyContext } from "../../App";
+
+export default function Home() {
+  const { name } = useContext(MyContext);
+  return (
+    <div>
+      <h2>My Name is {name}</h2>
+    </div>
+  );
+}
+```
+
+**Multiple Value :**
+
+**`src/App.jsx`**
+
+```js
+import { createContext } from "react";
+import Home from "./pages/home/Home";
+import About from "./pages/about/About";
+
+export const MyContext = createContext();
+
+export default function App() {
+  const fName = "John";
+  const lName = "Doe";
+
+  const person = {
+    age: 26,
+    email: "johnDoe932@outlook.com",
+  };
+
+  return (
+    <>
+      <MyContext.Provider value={{ fName, lName, person }}>
+        <Home />
+        <About />
+      </MyContext.Provider>
+    </>
+  );
+}
+```
+
+**`src/page/home/Home.jsx`**
+
+```js
+import { useContext } from "react";
+import { MyContext } from "../../App";
+
+export default function Home() {
+  // Variable method
+  const name = useContext(MyContext); // John
+
+  // direct declare method
+  const { lName } = useContext(MyContext); // Doe
+
+  return (
+    <div>
+      <h2>
+        My Name is {name.fName} {lName}
+      </h2>
+    </div>
+  );
+}
+```
+
+**`src/page/about/About.jsx`**
+
+```js
+import { useContext } from "react";
+import { MyContext } from "../../App";
+
+export default function About() {
+  const contact = useContext(MyContext);
+
+  const { person } = useContext(MyContext);
+  return (
+    <div>
+      <h2>my age is {person.age}</h2>
+      <h2>{contact.person.email}</h2>
+    </div>
   );
 }
 ```
