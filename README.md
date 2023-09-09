@@ -488,3 +488,83 @@ export default function About() {
   );
 }
 ```
+
+## 📌 Props
+
+**Step 1:** Pass props to the child component.
+
+First pass some props to `Product`. For example, let's pass some props: `card` (an object), and also single value.
+
+```js
+import Product from "./pages/product/Product";
+
+export default function App() {
+  return (
+    <>
+      <Product card={{
+        img: "https://res.cloudinary.com/dpiiduvvx/image/upload/v1694261666/Code_blxikb.jpg",
+        imgWidth: 400,
+        title: "Coding Image",
+        article: "This is a description of the image"
+      }} />
+
+      <Product card={{
+        img: "https://res.cloudinary.com/dpiiduvvx/image/upload/v1694261481/cld-sample-5.jpg",
+        imgWidth: 400,
+        title: "Shoes For Man",
+        article: "Lorem ipsum dolor sit amet consectetur adipisicing \
+        elit. Quisquam quae debitis nihil repellendus autem!"
+      }} />
+    </>
+  );
+}
+```
+
+**Step 2:** Read props inside the child component 
+
+You can also props by listing their names `card` separated by the commas inside `({` and `})` directly after `function Card`. This lets you use them inside the Card code, like you would with a variable.
+
+```js
+import styles from "./CardStyle"
+
+export default function Card({ card }) {
+  return (
+    <section style={styles.card}>
+      <div><img src={card.img} alt="cardImage" width={card.imgWidth} /></div>
+      <section style={styles.cardDetail}>
+        <h3 style={styles.cardHeading}>{card.title}</h3>
+        <p style={styles.article}>{card.article}</p>
+      </section>
+    </section>
+  )
+}
+```
+
+**CardStyle.jsx**
+
+```js
+const styles = {
+  card: {
+    width: "400px",
+    margin: "40px",
+    border: "2px solid black",
+    overflow: "hidden",
+    backgroundColor: "#ddd",
+    boxShadow: "0 0 20px black",
+    fontFamily: "Arial"
+  },
+  cardDetail: {
+    padding: "0 10px"
+  },
+  cardHeading: {
+    padding: "10px 0",
+    fontSize: "25px",
+  },
+  article: {
+    paddingBottom: "10px",
+    color: "gray"
+  }
+}
+
+export default styles
+````
