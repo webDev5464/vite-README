@@ -513,7 +513,7 @@ const styles = {
 export default styles
 ````
 
-## 📌 Context
+## 📌 useContext Hooks
 
 To create context, you must Import `createContext` and initialize it:
 
