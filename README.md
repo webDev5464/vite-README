@@ -255,7 +255,7 @@ export default function App() {
 }
 ```
 
-## 📌 useEffect Hooks
+## 📌 useEffect() Hooks
 
 The `useEffect` Hook allows you to perform side effects in your components.
 
@@ -377,7 +377,7 @@ export default function App() {
 }
 ```
 
-## 📌 useState Hooks
+## 📌 useState() Hooks
 
 Using `useState()` with increase end decrease value.
 
