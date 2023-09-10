@@ -379,6 +379,8 @@ export default function App() {
 
 ## 📌 useState Hooks
 
+Using `useState()` with increase end decrease value.
+
 ```js
 import { useState } from "react"
 
@@ -400,6 +402,8 @@ export default function AdditionValue() {
 
 ****
 
+Click toggle button end change theme.
+1
 ```js
 import { useState } from 'react'
 
@@ -431,6 +435,61 @@ const styles = {
   btn: {
     padding: "5px 7px"
   }
+```
+
+## useRef() Hooks
+
+**Does Not Cause Re-render**
+
+If we tried to count how many times our application renders using the `useState` Hook, we would be caught in an infinite loop since this Hook itself causes a re-render.
+
+To avoid this, we can use the `useRef` Hook.
+
+```js
+import { useEffect, useRef, useState } from "react"
+
+export default function InputValueCount() {
+  const [inputValue, setInputValue] = useState("")
+  const count = useRef(0)
+
+  useEffect(() => {
+    count.current = count.current + 1
+  })
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Write Something"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+      />
+
+      <h2>Render count : {count.current}</h2>
+    </div>
+  )
+}
+```
+
+**Click End Scroll using useRef() hooks.**
+
+```js
+import { useRef } from "react"
+
+export default function ClickEndScroll() {
+  const ref = useRef(null);
+  const doClick = () => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  return (
+    <>
+      <button onClick={doClick}>or click this button</button>
+      <div style={{ height: "400vh" }}></div>
+      <div ref={ref} className="red">Red Div</div>
+    </>
+  )
+}
 ```
 
 ## 📌 Props
@@ -513,7 +572,7 @@ const styles = {
 export default styles
 ````
 
-## 📌 useContext Hooks
+## 📌 createContext() & useContext() Hooks
 
 To create context, you must Import `createContext` and initialize it:
 
