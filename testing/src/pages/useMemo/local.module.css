@@ -1,0 +1,5 @@
+.parent > div:last-child > p > button {
+  margin: 0 0 0 10px;
+  padding: 0 4px;
+  font-size: larger;
+}
