@@ -142,6 +142,41 @@ const person = {
 };
 ```
 
+#### 🔺 Local CSS
+
+```js 
+import Local from "./Local.module.css"
+```
+
+import specific component css.
+
+```js
+import React from 'react'
+import Local from "./Local.module.css"
+
+export default function LocalCss() {
+  return (
+    <div className={Local.parent}>
+      <h1 className={Local.myHeading}>Hello World</h1>
+    </div>
+  )
+}
+```
+
+- Create `myLocalStyle.module.css` file name.
+
+```css
+.parent {
+  background-color: red;
+}
+
+.myHeading {
+  font-size: 35px;
+  font-weight: bolder;
+  color: white;
+}
+```
+
 ## 📌 What is a Hook?
 
 Hooks allow us to "hook" into React features such as state and lifecycle methods.
