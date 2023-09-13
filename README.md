@@ -604,6 +604,78 @@ export default function ClickEndScroll() {
 }
 ```
 
+<!-- ## 📌 useReducer
+
+Call `useReducer` at the top level of your component to manage its state with a reducer.
+
+```js
+import { useReducer } from "react";
+
+const reducer = (state, action) => {
+  // ...
+}
+
+export default MyFunction() {
+  const [state, dispatch] = useReducer(reducer, { age: 22 })
+  // ...
+```
+
+## 🔺 Parameters
+
+- `reducer`: The reducer function that specifies how the state gets updated. It must be pure, should take the state and action as arguments, and should return the next state. State and action can be of any types.
+  
+- `initialArg`: The value from which the initial state is calculated. It can be a value of any type. How the initial state is calculated from it depends on the next `init` argument.
+  
+- **optional** `init`: The initializer function that should return the initial state. If it’s not specified, the initial state is set to `initialArg`. Otherwise, the initial state is set to the result of calling `init(initialArg)`.
+
+#### 🔺 Returns
+
+`useReducer` returns an array with exactly two values:
+
+**1.** The current state. During the first render, it’s set to `init(initialArg)` or `initialArg` (if there’s no `init`).
+
+**2.** The `dispatch function` that lets you update the state to a different value and trigger a re-render.
+
+#### 🔺 dispatch function 
+
+The `dispatch` function returned by `useReducer` lets you update the state to a different value and trigger a re-render. You need to pass the action as the only argument to the `dispatch` function:
+
+```js
+const [state, dispatch] = useReducer(reducer, { age: 22 });
+
+  const handleClick = () => {
+    dispatch({ type: 'increment_age' });
+    // ...
+```
+
+React will set the next state to the result of calling the `reducer` function you’ve provided with the current `state` and the action you’ve passed to `dispatch`.
+
+**Example : Increment Age**
+
+```js
+import { useReducer } from "react"
+
+const reducer = (state, action) => {
+  if (action.type === 'increment_age') {
+    return {
+      age: state.age + 1
+    }
+  }
+  throw Error('Unknown Action')
+}
+
+export default function ReducerExample() {
+  const [state, despatch] = useReducer(reducer, { age: 22 })
+
+  return (
+    <div>
+      <h2>My Age is {state.age}</h2>
+      <button onClick={() => despatch({ type: 'increment_age' })}>Click!</button>
+    </div>
+  )
+}
+``` -->
+
 ## 📌 Props
 
 **Step 1:** Pass props to the child component.
@@ -684,7 +756,7 @@ const styles = {
 export default styles
 ````
 
-## 📌 createContext() & useContext() Hooks
+## 📌 useContext() Hooks
 
 To create context, you must Import `createContext` and initialize it:
 
