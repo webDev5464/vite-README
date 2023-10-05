@@ -1,9 +1,17 @@
 # 🎓 Vite Js + React Basic to Advance
 
-## 🔺 Install vite
+## 📌 Install Dependency
+
+## 📌 Install vite
 
 ```bash
 npm create vite@latest
+```
+
+or
+
+```bash
+npm create vite
 ```
 
 - Enter your project name.
