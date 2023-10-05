@@ -3,7 +3,7 @@
 ## 🔺 Install vite
 
 ```bash
-npm create vite@latest 
+npm create vite@latest
 ```
 
 - Enter your project name.
@@ -18,8 +18,10 @@ cd myProject
 npm install
 ```
 
-****
-****
+---
+
+---
+
 **Open vs code in this directory**
 
 ```bash
@@ -31,30 +33,35 @@ PS C:\Users\Desktop\myProject> code .
 ![Folder Structure](/assets/FolderSructure.png)
 
 - `public` : public directory for show publicly show.
-- `src` : the *src* is source directory. this not show publicly.
+- `src` : the _src_ is source directory. this not show publicly.
 - `main.jsx` : This file is return all components.
 - `App.jsx` : write here hello world.
 - `package.json` & `package-lock.json` : **Warning** do not change anything in this file end do not delete this file. this files handle all dependence's end all packages.
 
 **Remove File's end folder :**
+
 - `App.css`
 - `index.css`
 - `/assets` : `react.svg`
 - `/public` : `vite.svg`
 
-**⚠️ Throw Error :** `src/main.jsx` remove line 
-```js 
-import "./main.jsx"
+**⚠️ Throw Error :** `src/main.jsx` remove line
+
+```js
+import "./main.jsx";
 ```
 
-****
-****
+---
 
-****
+---
+
+---
+
 📝 **Note :**
 
 Create Components name always capital latter (`Home.jsx`, `About.jsx`, `Service.js`)
-****
+
+---
 
 ## 📌 Start project developer mode.
 
@@ -81,8 +88,9 @@ export default function App() {
 #### 🔺 Global CSS
 
 `app.js` :
+
 ```js
-import './styles/global.css'
+import "./styles/global.css";
 
 export default function App() {
   return (
@@ -105,7 +113,7 @@ This css apply all component's.
 
 #### 🔺 Component CSS
 
-***`src/pages/home/Home.jsx`***
+**_`src/pages/home/Home.jsx`_**
 
 ```js
 export default function Home() {
@@ -144,22 +152,22 @@ const person = {
 
 #### 🔺 Local CSS
 
-```js 
-import Local from "./Local.module.css"
+```js
+import Local from "./Local.module.css";
 ```
 
 import specific component css.
 
 ```js
-import React from 'react'
-import Local from "./Local.module.css"
+import React from "react";
+import Local from "./Local.module.css";
 
 export default function LocalCss() {
   return (
     <div className={Local.parent}>
       <h1 className={Local.myHeading}>Hello World</h1>
     </div>
-  )
+  );
 }
 ```
 
@@ -207,6 +215,7 @@ Here we are using the `useState` Hook to keep track of the application state.
 State generally refers to application data or properties that need to be tracked.
 
 #### 🔺 Hook Rules
+
 There are 3 rules for hooks:
 
 - Hooks can only be called inside React function components.
@@ -309,11 +318,9 @@ export default function App() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-
     setTimeout(() => {
       setCount((count) => count + 1);
     }, 1000);
-
   });
 
   return (
@@ -328,7 +335,6 @@ But wait!! It keeps counting even though it should only count once!
 
 `useEffect` runs on every render. That means that when the count changes, a render happens, which then triggers another effect.
 
-
 This is not what we want. There are several ways to control when side effects run.
 
 We should always include the second parameter which accepts an array. We can optionally pass dependencies to `useEffect` in this array.
@@ -336,34 +342,35 @@ We should always include the second parameter which accepts an array. We can opt
 **1. No dependency passed:**
 
 ```js
-useEffect(()=> {
+useEffect(() => {
   // Runs on every render
-})
+});
 ```
 
 **2. An empty array:**
 
 ```js
-useEffect(()=> {
+useEffect(() => {
   // Runs only on the first render
-}, [])
+}, []);
 ```
 
 **Props or state values**
 
 ```js
-useEffect(()=> {
+useEffect(() => {
   // Runs on the first render
   // And any time any dependency value changes
-}, [props, state])
+}, [props, state]);
 ```
 
 **3. Props or state values:**
+
 ```js
-useEffect(()=> {
+useEffect(() => {
   // Runs on the first render
   // And any time any dependency value changes
-}, [prop, state])
+}, [prop, state]);
 ```
 
 So, to fix this issue, let's only run this effect on the initial render.
@@ -375,11 +382,9 @@ export default function App() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-
     setTimeout(() => {
       setCount((count) => count + 1);
     }, 1000);
-    
   }, []); // <- add empty brackets here
 
   return (
@@ -416,7 +421,6 @@ export default function App() {
 
 The `useMemo` Hook only runs when one of its dependencies update.
 
-
 This can improve performance.
 
 **Performance**
@@ -429,46 +433,47 @@ In this example, we have an expensive function that runs on every render.
 
 When changing the count or adding a todo, you will notice a delay in execution.
 
-*intensionally create problem*
+_intensionally create problem_
 
 ```js
-import { useState } from "react"
-import local from "./local.module.css"
+import { useState } from "react";
+import local from "./local.module.css";
 
 export default function WithoutUseMemo() {
-
-  const [todo, setTodo] = useState([])
+  const [todo, setTodo] = useState([]);
   const addTodo = () => {
-    setTodo(t => [...t, "New Todo"])
-  }
+    setTodo((t) => [...t, "New Todo"]);
+  };
 
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
   const increment = () => {
-    setCount(c => c + 1)
-  }
+    setCount((c) => c + 1);
+  };
 
   const expensiveCalculation = (num) => {
     for (let i = 0; i < 1000000000; i++) {
-      num += 1
+      num += 1;
     }
-    return num
-  }
-  const calculation = expensiveCalculation(count)
+    return num;
+  };
+  const calculation = expensiveCalculation(count);
 
   return (
     <section className={local.parent}>
       <div>
         {todo.map((todo, index) => {
-          return <p key={index}>{todo}</p>
+          return <p key={index}>{todo}</p>;
         })}
         <button onClick={addTodo}>Click</button>
       </div>
       <div>
-        <p>Count: {count} <button onClick={increment}>+</button></p>
+        <p>
+          Count: {count} <button onClick={increment}>+</button>
+        </p>
         <div>{calculation}</div>
       </div>
     </section>
-  )
+  );
 }
 ```
 
@@ -483,44 +488,46 @@ The `useMemoHook` accepts a second parameter to declare dependencies. The expens
 In the following example, the expensive function will only run when count is changed and not when todo's are added.
 
 ```js
-import { useMemo, useState } from "react"
-import local from "./local.module.css"
+import { useMemo, useState } from "react";
+import local from "./local.module.css";
 
 export default function UseMemo() {
-  const [todo, setTodo] = useState([])
+  const [todo, setTodo] = useState([]);
   const addTodo = () => {
-    setTodo(t => [...t, "New Todo"])
-  }
+    setTodo((t) => [...t, "New Todo"]);
+  };
 
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
   const increment = () => {
-    setCount(c => c + 1)
-  }
+    setCount((c) => c + 1);
+  };
 
   const expensiveCalculation = (num) => {
     for (let i = 0; i < 1000000000; i++) {
-      num += 1
+      num += 1;
     }
-    return num
-  }
-  const calculation = useMemo(() => expensiveCalculation(count), [count])
+    return num;
+  };
+  const calculation = useMemo(() => expensiveCalculation(count), [count]);
 
   return (
     <div>
       <section className={local.parent}>
         <div>
           {todo.map((todo, index) => {
-            return <p key={index}>{todo}</p>
+            return <p key={index}>{todo}</p>;
           })}
           <button onClick={addTodo}>Click</button>
         </div>
         <div>
-          <p>Count: {count} <button onClick={increment}>+</button></p>
+          <p>
+            Count: {count} <button onClick={increment}>+</button>
+          </p>
           <div>{calculation}</div>
         </div>
       </section>
     </div>
-  )
+  );
 }
 ```
 
@@ -529,28 +536,33 @@ export default function UseMemo() {
 Using `useState()` with increase end decrease value.
 
 ```js
-import { useState } from "react"
+import { useState } from "react";
 
 export default function AdditionValue() {
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState(0);
   return (
     <div>
       <h2>Value : {value}</h2>
       <button onClick={() => setValue(value + 1)}>Add Value</button>
       <br />
       <br />
-      <button onClick={() => { value == 0 ? "" : setValue(value - 1) }}>
+      <button
+        onClick={() => {
+          value == 0 ? "" : setValue(value - 1);
+        }}
+      >
         Less Value
       </button>
     </div>
-  )
+  );
 }
 ```
 
-****
+---
 
 Click toggle button end change theme.
 1
+
 ```js
 import { useState } from 'react'
 
@@ -584,7 +596,7 @@ const styles = {
   }
 ```
 
-## 📌  useRef() Hooks
+## 📌 useRef() Hooks
 
 **Does Not Cause Re-render**
 
@@ -593,15 +605,15 @@ If we tried to count how many times our application renders using the `useState`
 To avoid this, we can use the `useRef` Hook.
 
 ```js
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react";
 
 export default function InputValueCount() {
-  const [inputValue, setInputValue] = useState("")
-  const count = useRef(0)
+  const [inputValue, setInputValue] = useState("");
+  const count = useRef(0);
 
   useEffect(() => {
-    count.current = count.current + 1
-  })
+    count.current = count.current + 1;
+  });
 
   return (
     <div>
@@ -614,102 +626,32 @@ export default function InputValueCount() {
 
       <h2>Render count : {count.current}</h2>
     </div>
-  )
+  );
 }
 ```
 
 **Click End Scroll using useRef() hooks.**
 
 ```js
-import { useRef } from "react"
+import { useRef } from "react";
 
 export default function ClickEndScroll() {
   const ref = useRef(null);
   const doClick = () => {
-    ref.current?.scrollIntoView({ behavior: 'smooth' })
-  }
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <>
       <button onClick={doClick}>or click this button</button>
       <div style={{ height: "400vh" }}></div>
-      <div ref={ref} className="red">Red Div</div>
+      <div ref={ref} className="red">
+        Red Div
+      </div>
     </>
-  )
+  );
 }
 ```
-
-<!-- ## 📌 useReducer
-
-Call `useReducer` at the top level of your component to manage its state with a reducer.
-
-```js
-import { useReducer } from "react";
-
-const reducer = (state, action) => {
-  // ...
-}
-
-export default MyFunction() {
-  const [state, dispatch] = useReducer(reducer, { age: 22 })
-  // ...
-```
-
-## 🔺 Parameters
-
-- `reducer`: The reducer function that specifies how the state gets updated. It must be pure, should take the state and action as arguments, and should return the next state. State and action can be of any types.
-  
-- `initialArg`: The value from which the initial state is calculated. It can be a value of any type. How the initial state is calculated from it depends on the next `init` argument.
-  
-- **optional** `init`: The initializer function that should return the initial state. If it’s not specified, the initial state is set to `initialArg`. Otherwise, the initial state is set to the result of calling `init(initialArg)`.
-
-#### 🔺 Returns
-
-`useReducer` returns an array with exactly two values:
-
-**1.** The current state. During the first render, it’s set to `init(initialArg)` or `initialArg` (if there’s no `init`).
-
-**2.** The `dispatch function` that lets you update the state to a different value and trigger a re-render.
-
-#### 🔺 dispatch function 
-
-The `dispatch` function returned by `useReducer` lets you update the state to a different value and trigger a re-render. You need to pass the action as the only argument to the `dispatch` function:
-
-```js
-const [state, dispatch] = useReducer(reducer, { age: 22 });
-
-  const handleClick = () => {
-    dispatch({ type: 'increment_age' });
-    // ...
-```
-
-React will set the next state to the result of calling the `reducer` function you’ve provided with the current `state` and the action you’ve passed to `dispatch`.
-
-**Example : Increment Age**
-
-```js
-import { useReducer } from "react"
-
-const reducer = (state, action) => {
-  if (action.type === 'increment_age') {
-    return {
-      age: state.age + 1
-    }
-  }
-  throw Error('Unknown Action')
-}
-
-export default function ReducerExample() {
-  const [state, despatch] = useReducer(reducer, { age: 22 })
-
-  return (
-    <div>
-      <h2>My Age is {state.age}</h2>
-      <button onClick={() => despatch({ type: 'increment_age' })}>Click!</button>
-    </div>
-  )
-}
-``` -->
 
 ## 📌 Props
 
@@ -723,42 +665,49 @@ import Product from "./pages/product/Product";
 export default function App() {
   return (
     <>
-      <Product card={{
-        img: "https://res.cloudinary.com/dpiiduvvx/image/upload/v1694261666/Code_blxikb.jpg",
-        imgWidth: 400,
-        title: "Coding Image",
-        article: "This is a description of the image"
-      }} />
+      <Product
+        card={{
+          img: "https://res.cloudinary.com/dpiiduvvx/image/upload/v1694261666/Code_blxikb.jpg",
+          imgWidth: 400,
+          title: "Coding Image",
+          article: "This is a description of the image",
+        }}
+      />
 
-      <Product card={{
-        img: "https://res.cloudinary.com/dpiiduvvx/image/upload/v1694261481/cld-sample-5.jpg",
-        imgWidth: 400,
-        title: "Shoes For Man",
-        article: "Lorem ipsum dolor sit amet consectetur adipisicing \
-        elit. Quisquam quae debitis nihil repellendus autem!"
-      }} />
+      <Product
+        card={{
+          img: "https://res.cloudinary.com/dpiiduvvx/image/upload/v1694261481/cld-sample-5.jpg",
+          imgWidth: 400,
+          title: "Shoes For Man",
+          article:
+            "Lorem ipsum dolor sit amet consectetur adipisicing \
+        elit. Quisquam quae debitis nihil repellendus autem!",
+        }}
+      />
     </>
   );
 }
 ```
 
-**Step 2:** Read props inside the child component 
+**Step 2:** Read props inside the child component
 
 You can also props by listing their names `card` separated by the commas inside `({` and `})` directly after `function Card`. This lets you use them inside the Card code, like you would with a variable.
 
 ```js
-import styles from "./CardStyle"
+import styles from "./CardStyle";
 
 export default function Card({ card }) {
   return (
     <section style={styles.card}>
-      <div><img src={card.img} alt="cardImage" width={card.imgWidth} /></div>
+      <div>
+        <img src={card.img} alt="cardImage" width={card.imgWidth} />
+      </div>
       <section style={styles.cardDetail}>
         <h3 style={styles.cardHeading}>{card.title}</h3>
         <p style={styles.article}>{card.article}</p>
       </section>
     </section>
-  )
+  );
 }
 ```
 
@@ -773,10 +722,10 @@ const styles = {
     overflow: "hidden",
     backgroundColor: "#ddd",
     boxShadow: "0 0 20px black",
-    fontFamily: "Arial"
+    fontFamily: "Arial",
   },
   cardDetail: {
-    padding: "0 10px"
+    padding: "0 10px",
   },
   cardHeading: {
     padding: "10px 0",
@@ -784,12 +733,12 @@ const styles = {
   },
   article: {
     paddingBottom: "10px",
-    color: "gray"
-  }
-}
+    color: "gray",
+  },
+};
 
-export default styles
-````
+export default styles;
+```
 
 ## 📌 useContext() Hooks
 
