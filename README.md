@@ -1,8 +1,20 @@
 # 🎓 Vite Js + React Basic to Advance
 
-## 📌 Install Dependency
+## 📌 VS Code Setting end Dependency
 
-## 📌 Install vite
+- Open vs code setting end search `emmet include languages`
+
+**Add language :**
+
+| item       | Value           |
+| :--------- | :-------------- |
+| javascript | javascriptreact |
+
+**OK**
+
+![Emmet Include Languages](./assets/vsCodeSettingEmmetIncludeLanguages.png)
+
+## 📌 Install Vite + React
 
 ```bash
 npm create vite@latest
@@ -191,6 +203,104 @@ export default function LocalCss() {
   font-weight: bolder;
   color: white;
 }
+```
+
+## 📌 Routing
+
+- Install package
+
+```bash
+PS C:\Users\Desktop\myProject> npm i react-router-dom
+```
+
+- create components for navigation page.
+
+export all this components. end import inside all components for using navigation.
+
+**Home.jsx**
+
+```js
+function Home() {
+  return <h1>This is a Home</h1>;
+}
+
+export default Home;
+```
+
+**About.jsx**
+
+```js
+function About() {
+  return <h2>This is a About Page</h2>;
+}
+
+export default About;
+```
+
+**Service.jsx**
+
+```js
+function Service() {
+  return <h2>This is a Service page.</h2>;
+}
+
+export default Service;
+```
+
+- Remove all code in App.jsx.
+- import `BrowserRouter`, `Routes`, `Route`
+
+**App.jsx**
+
+```js
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Components/Home";
+import Navigation from "./Navigation";
+import About from "./Components/About";
+import Service from "./Components/Service";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="About" element={<About />} />
+        <Route path="Service" element={<Service />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+- create `navigation.jsx` for navigation without reload page.
+
+- Do not use `<a href=""></a>`. use `<NavLink></NavLink>`.
+
+```js
+import { NavLink } from "react-router-dom";
+
+function Navigation() {
+  return (
+    <nav>
+      <ul>
+        <li>
+          <NavLink to={"/"}>Home</NavLink>
+        </li>
+        <li>
+          <NavLink to={"About"}>About</NavLink>
+        </li>
+        <li>
+          <NavLink to={"Service"}>Service</NavLink>
+        </li>
+      </ul>
+    </nav>
+  );
+}
+
+export default Navigation;
 ```
 
 ## 📌 What is a Hook?
@@ -688,8 +798,7 @@ export default function App() {
           imgWidth: 400,
           title: "Shoes For Man",
           article:
-            "Lorem ipsum dolor sit amet consectetur adipisicing \
-        elit. Quisquam quae debitis nihil repellendus autem!",
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam quae debitis nihil repellendus autem!",
         }}
       />
     </>
