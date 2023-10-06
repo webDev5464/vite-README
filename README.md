@@ -1,5 +1,7 @@
 # 🎓 Vite Js + React Basic to Advance
 
+![vite](./assets/vite.svg)![react](./assets/react.svg)
+
 ## 📌 VS Code Setting end Dependency
 
 - Open vs code setting end search `emmet include languages`
