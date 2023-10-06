@@ -1,6 +1,4 @@
-# 🎓 Vite Js + React Basic to Advance
-
-![vite](./assets/vite.svg)![react](./assets/react.svg)
+# 🎓 Vite Js ![vite](./assets/vite.svg) + React ![react](./assets/react.svg)
 
 ## 📌 VS Code Setting end Dependency
 
