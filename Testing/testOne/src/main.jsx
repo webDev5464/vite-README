@@ -1,10 +1,11 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import "./styles/globle.css"
+import "./Components/styles/globle.css"
+import { Provider } from "react-redux"
+import ProductStore from "./Components/modules/config/productStore.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <Provider store={ProductStore}>
     <App />
-  </React.StrictMode>
+  </Provider>
 );

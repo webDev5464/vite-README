@@ -342,82 +342,195 @@ There are 3 rules for hooks:
 
 - Hooks cannot be conditional
 
-#### 🔺 useState Hook
+## 📌 useState
 
-The React `useState` Hook allows us to track state in a function component.
+#### 🔺 Create Counter using useState()
 
-State generally refers to data or properties that need to be tracking in an application.
-
-Import `useState`
-
-To use the `useState` Hook, we first need to `import` it into our component.
-
-At the top of your component, `import` the `useState` Hook.
+-  `useState` is a hook in React that allows you to add state to functional components. It takes an initial state as an argument and returns an array with two elements: the current state and a function to update the state. Here's an example of how to use `useState` in a React component:
 
 ```js
-import { useState } from "react";
-```
+import { useState } from "react"
 
-Initialize `useState`
+export default function UseContextComponent() {
+  const [val, setVal] = useState(0)
 
-We initialize our state by calling `useState` in our function component.
+  const increment = () => {
+    setVal(() => val + 1)
+  }
 
-`useState` accepts an initial state and returns two values:
+  const decrement = () => {
+    setVal(() => val === 0 ? 0 : val - 1)
+  }
 
-The current state.
-A function that updates the state.
-
-Initialize state at the top of the function component.
-
-```js
-import { useState } from "react";
-
-function FavoriteColor() {
-  const [color, setColor] = useState("");
+  return (
+    <section className="flexContainer">
+      <button onClick={decrement}>-</button>
+      <h1>{val}</h1>
+      <button onClick={increment}>+</button>
+    </section>
+  )
 }
 ```
 
-Notice that again, we are destructuring the returned values from useState.
+- In this example, we import `useState` from React, declare a state variable called `val` with an initial value of 0, and define two event handlers, `increment` and `decrement`. These event handlers use the `setVal` function to update the count state when the "Increment" or "Decrement" buttons are clicked.
 
-The first value, color, is our current state.
+- The current value of `val` is displayed in the `<h1>` element, and clicking the buttons will update the value, causing the component to re-render and reflect the updated state.
 
-The second value, setColor, is the function that is used to update our state.
+#### 🔺 Change toggleTheme using useState()
+
+- You can use `useState` to implement a simple theme toggler in a React component. Here's an example of how to create a button that toggles between a light and dark theme:
 
 ```js
-import "./style.css";
-import { useState } from "react";
+import React, { useState } from 'react'
 
-// This is a js comment
+export default function ToggleThemeContent() {
+  const [theme, setTheme] = useState(false)
 
-export default function App() {
-  const [color, setColor] = useState();
+  const toggleTheme = () => {
+    setTheme(!theme)
+  }
+
+  const themeClass = theme ? 'light' : 'dark'
+
   return (
-    <>
-      {/* This is a jsx comment */}
-      {/* Using the ternary operator */}
-      <h2 className={color ? "bgBlack" : "bgWhite"}>
-        Change background color.
-      </h2>
+    <section className={themeClass}>
+      <h1>Hello React</h1>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum, quidem!</p>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum earum dignissimos voluptas suscipit, quaerat odit id quibusdam. Repellat delectus, nesciunt veritatis eius rerum similique itaque, iure, a ad corrupti ratione.</p>
 
-      <button onClick={setColor}>Click!</button>
-    </>
-  );
+      <button onClick={toggleTheme}>Change Theme</button>
+    </section>
+  )
 }
 ```
 
 ```css
-.bgBlack {
+.dark {
   background-color: black;
   color: white;
+  padding: 10px;
 }
 
-.bgWhite {
+.light {
   background-color: white;
   color: black;
+  padding: 10px;
 }
 ```
 
-## 📌 useEffect() Hooks
+- In this example, we start by defining a state variable `theme` with an initial value of `false`. We also create a `toggleTheme` function that toggles the value of `theme` when the "Toggle Theme" button is clicked.
+
+- The CSS class for the theme is determined by the `themeClass` variable, which is either "dark-theme" or "light-theme" based on the value of `theme`. You can define your CSS classes for the light and dark themes in your stylesheet.
+
+- When the button is clicked, the theme will toggle between light and dark, and the component will re-render with the updated theme, thanks to the use of `useState`.
+
+#### 🔺 Crete todo list using useState()
+
+- Sure, here's another example of how to use `useState` in a React component to manage and update a list of items. In this example, we'll create a simple to-do list:
+
+```js
+import { useState } from "react"
+
+export default function MyTodoList() {
+  const [todo, setTodo] = useState([])
+  const [inputVal, setInputVal] = useState('')
+
+  const addTodo = () => {
+    if (inputVal) {
+      setTodo([...todo, inputVal])
+      setInputVal('')
+    }
+  }
+
+  const deleteTodo = (index) => {
+    const updatedTodo = [...todo]
+    updatedTodo.splice(index, 1)
+    setTodo(updatedTodo)
+  }
+
+  return (
+    <section>
+      <h1>Todo List</h1>
+
+      <input type="text" placeholder="Add Todo List" value={inputVal} onChange={(e) => setInputVal(e.target.value)} />
+      <button onClick={addTodo}>Add Todo</button>
+
+      <ul>
+        {todo.map((t, i) => (
+          <li key={i}>
+            {t}
+            <button onClick={() => deleteTodo(i)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+```
+
+In this example:
+
+**1.** We use `useState` to manage two state variables: `todo` and `inputVal`. `todo` is an array that holds the list of to-do items, and `inputVal` is a string that stores the current value of the input field.
+
+**2.** The `addTodo` function is called when the "Add" button is clicked. It adds the value of `inputVal` to the `todo` array and then clears the input field.
+
+**3.** The `deleteTodo` function allows you to remove a to-do item from the list by clicking the "Delete" button associated with each item.
+
+**4.** The to-do items are displayed in an unordered list (`<ul>`) and rendered using the `map` function, which iterates over the `todo` array and generates a list item for each to-do item.
+
+This example demonstrates how `useState` can be used to manage and update a dynamic list of items within a React component.
+
+## 📌 useEffect()
+
+#### 🔺 fetch API using useEffect()
+
+- `useEffect` is a hook in React that allows you to perform side effects in your functional components. Side effects can include data fetching, DOM manipulation, or subscribing to external services. Here's an example of how to use `useEffect` in a React component:
+
+```js
+import { useState, useEffect } from 'react';
+
+export default function UseEffect() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+    fetch('https://res.cloudinary.com/dpiiduvvx/raw/upload/v1697829682/productData').then((response) => response.json()).then((data) => {
+      console.log(data);
+      const allData = [...data.earbud, ...data.tshirt, ...data.shoes, ...data.tshirtWomen,]
+      setData(allData);
+      setLoading(false);
+    });
+
+  }, []);
+
+  return (
+    <div>
+      <h1>Example Component</h1>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <ul>
+          {data.map((item) => (
+            <li key={item.id} style={styles.list}>{item.title}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+const styles = {
+  list: {
+    margin: "10px 0",
+    padding: "5px",
+    listStyle: "none",
+    backgroundColor: "#303030"
+  }
+}
+```
+
+#### 🔺 timing increment value using useEffect()
 
 The `useEffect` Hook allows you to perform side effects in your components.
 
@@ -967,4 +1080,12 @@ export default function About() {
     </div>
   );
 }
+```
+
+## 📌 useRedux
+
+- install redux
+
+```bash
+npm i @reduxjs/toolkit react-redux
 ```
