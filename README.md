@@ -468,8 +468,6 @@ export default function MyTodoList() {
 }
 ```
 
-In this example:
-
 **1.** We use `useState` to manage two state variables: `todo` and `inputVal`. `todo` is an array that holds the list of to-do items, and `inputVal` is a string that stores the current value of the input field.
 
 **2.** The `addTodo` function is called when the "Add" button is clicked. It adds the value of `inputVal` to the `todo` array and then clears the input field.
@@ -531,6 +529,35 @@ const styles = {
 ```
 
 #### 🔺 timing increment value using useEffect()
+
+- In React, the `useEffect` hook is used to perform side effects in functional components. These side effects can include data fetching, setting up subscriptions, or manually changing the DOM in some way. It is similar to lifecycle methods in class components. Here's an example of how to use the `useEffect` hook in a React component:
+
+```js
+import { useEffect, useState } from "react"
+
+export default function UseEffect() {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    document.title = `Count: ${count}`
+
+    return () => {
+      document.title = 'React App'
+    }
+  })
+
+  const incrementCount = () => {
+    setCount(count + 1)
+  }
+
+  return (
+    <>
+      <h1>Count: {count}</h1>
+      <button onClick={incrementCount}>Increment</button>
+    </>
+  )
+}
+```
 
 The `useEffect` Hook allows you to perform side effects in your components.
 
@@ -595,15 +622,6 @@ useEffect(() => {
 }, [props, state]);
 ```
 
-**3. Props or state values:**
-
-```js
-useEffect(() => {
-  // Runs on the first render
-  // And any time any dependency value changes
-}, [prop, state]);
-```
-
 So, to fix this issue, let's only run this effect on the initial render.
 
 ```js
@@ -635,9 +653,14 @@ export default function App() {
   const [count, setCount] = useState(0);
   const [calculation, setCalculation] = useState(0);
 
+  // useEffect(() => {
+  //   setCalculation(() => count * 2);
+  // });
+
   useEffect(() => {
     setCalculation(() => count * 2);
-  });
+  },[]);
+
   return (
     <>
       <p>Count {count}</p>
@@ -648,7 +671,48 @@ export default function App() {
 }
 ```
 
-## 📌 useMemo() Hooks
+## 📌 useRef()
+
+- In `React`, the useRef hook is used to create a mutable ref object that can be used to store a reference to a DOM element or to persist values across renders without causing a re-render. Here's an example of how to use the `useRef` hook in a React component:
+
+```js
+import { useRef, useEffect } from 'react';
+
+export default function UseRef() {
+  const myRef = useRef(null);
+
+  const focusInput = () => {
+    myRef.current.focus();
+  };
+
+  useEffect(() => {
+    myRef.current.focus();
+  }, []);
+
+  return (
+    <div>
+      <input type="text" ref={myRef} />
+      <button onClick={focusInput}>Focus Input</button>
+    </div>
+  );
+}
+```
+
+**1.** We import `useRef`, `useEffect`, and the `React` library.
+
+**2.** We create a functional component called `MyComponent`.
+
+**3.** Inside the component, we use the `useRef` hook to create a ref object named `myRef` and initialize it to `null`. This ref will be used to reference the input element.
+
+**4.** We define a `focusInput` function, which sets focus on the input element using the `current` property of the `myRef` object when the "Focus Input" button is clicked.
+
+**5.** We use the `useEffect` hook to set focus on the input element when the component initially mounts. The empty dependency array [] ensures that this effect runs only once, simulating the behavior of `componentDidMount` in class components.
+
+**6.** In the return statement, we render an input element and a button. We attach the `myRef` to the input element using the `ref` attribute, and we associate the `focusInput` function with the button's `onClick` event.
+
+Now, when you click the "Focus Input" button or when the component initially mounts, it will set focus on the input element using the `useRef` reference.
+
+## 📌 useMemo()
 
 The `useMemo` Hook only runs when one of its dependencies update.
 

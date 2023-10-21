@@ -1,41 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react"
 
 export default function UseEffect() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [count, setCount] = useState(0);
+  const [calculation, setCalculation] = useState(0);
 
   useEffect(() => {
-
-    fetch('https://res.cloudinary.com/dpiiduvvx/raw/upload/v1697829682/productData').then((response) => response.json()).then((data) => {
-      console.log(data);
-      const allData = [...data.earbud, ...data.tshirt, ...data.shoes, ...data.tshirtWomen,]
-      setData(allData);
-      setLoading(false);
-    });
-
+    setCalculation(() => count * 2);
   }, []);
 
-  return (
-    <div>
-      <h1>Example Component</h1>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {data.map((item) => (
-            <li key={item.id} style={styles.list}>{item.title}</li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-}
+  // useEffect(() => {
+  //   setCalculation(() => count * 2);
+  // });
 
-const styles = {
-  list: {
-    margin: "10px 0",
-    padding: "5px",
-    listStyle: "none",
-    backgroundColor: "#303030"
-  }
+  return (
+    <>
+      <p>Count {count}</p>
+      <button onClick={() => setCount((c) => c + 1)}>Click!</button>
+      <p>calculation {calculation}</p>
+    </>
+  );
 }
