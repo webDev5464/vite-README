@@ -673,6 +673,8 @@ export default function App() {
 
 ## 📌 useRef()
 
+#### 🔺 click end focus input using useRef()
+
 - In `React`, the useRef hook is used to create a mutable ref object that can be used to store a reference to a DOM element or to persist values across renders without causing a re-render. Here's an example of how to use the `useRef` hook in a React component:
 
 ```js
@@ -711,6 +713,51 @@ export default function UseRef() {
 **6.** In the return statement, we render an input element and a button. We attach the `myRef` to the input element using the `ref` attribute, and we associate the `focusInput` function with the button's `onClick` event.
 
 Now, when you click the "Focus Input" button or when the component initially mounts, it will set focus on the input element using the `useRef` reference.
+
+#### 🔺 fill input field end count same time using useRef()
+
+```js
+import { useRef, useEffect, useState } from 'react';
+
+export default function UseRef() {
+  const [inputValue, setInputValue] = useState("");
+  const count = useRef(0);
+
+  useEffect(() => {
+    count.current = count.current + 1;
+  });
+
+  return (
+    <div>
+      <input type="text" placeholder="Write Something" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+      <h2>Render count : {count.current}</h2>
+    </div>
+  );
+}
+```
+
+#### Click end scroll element using useRef()
+
+- This code demonstrates a common use case in React, where you can use the `useRef` hook to access and manipulate DOM elements and create interactive scroll functionality in your application.
+
+```js
+import { useRef } from "react";
+
+export default function ClickEndScroll() {
+  const ref = useRef(null);
+  const doClick = () => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <>
+      <button onClick={doClick}>Click!</button>
+      <div style={{ height: "400vh" }}></div>
+      <div ref={ref}>Hello World!</div>
+    </>
+  );
+}
+```
 
 ## 📌 useMemo()
 
@@ -822,128 +869,6 @@ export default function UseMemo() {
         </div>
       </section>
     </div>
-  );
-}
-```
-
-## 📌 useState() Hooks
-
-Using `useState()` with increase end decrease value.
-
-```js
-import { useState } from "react";
-
-export default function AdditionValue() {
-  const [value, setValue] = useState(0);
-  return (
-    <div>
-      <h2>Value : {value}</h2>
-      <button onClick={() => setValue(value + 1)}>Add Value</button>
-      <br />
-      <br />
-      <button
-        onClick={() => {
-          value == 0 ? "" : setValue(value - 1);
-        }}
-      >
-        Less Value
-      </button>
-    </div>
-  );
-}
-```
-
----
-
-Click toggle button end change theme.
-1
-
-```js
-import { useState } from 'react'
-
-export default function ChangeElementTheme() {
-  const [toggle, setToggle] = useState(true)
-  return (
-    <div>
-      <h2 style={toggle ? styles.black : styles.white}>
-        {toggle ? "Black" : "White"}
-      </h2>
-      <button onClick={() => setToggle(!toggle)} style={styles.btn}>Click!</button>
-    </div>
-  )
-}
-
-const styles = {
-  black: {
-    backgroundColor: "black",
-    color: "white",
-    padding: "10px",
-    marginBottom: "10px"
-  },
-  white: {
-    backgroundColor: "White",
-    color: "Black",
-    padding: "10px",
-    marginBottom: "10px"
-  },
-  btn: {
-    padding: "5px 7px"
-  }
-```
-
-## 📌 useRef() Hooks
-
-**Does Not Cause Re-render**
-
-If we tried to count how many times our application renders using the `useState` Hook, we would be caught in an infinite loop since this Hook itself causes a re-render.
-
-To avoid this, we can use the `useRef` Hook.
-
-```js
-import { useEffect, useRef, useState } from "react";
-
-export default function InputValueCount() {
-  const [inputValue, setInputValue] = useState("");
-  const count = useRef(0);
-
-  useEffect(() => {
-    count.current = count.current + 1;
-  });
-
-  return (
-    <div>
-      <input
-        type="text"
-        placeholder="Write Something"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-      />
-
-      <h2>Render count : {count.current}</h2>
-    </div>
-  );
-}
-```
-
-**Click End Scroll using useRef() hooks.**
-
-```js
-import { useRef } from "react";
-
-export default function ClickEndScroll() {
-  const ref = useRef(null);
-  const doClick = () => {
-    ref.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  return (
-    <>
-      <button onClick={doClick}>or click this button</button>
-      <div style={{ height: "400vh" }}></div>
-      <div ref={ref} className="red">
-        Red Div
-      </div>
-    </>
   );
 }
 ```

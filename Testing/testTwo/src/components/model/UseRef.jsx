@@ -1,20 +1,16 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from "react";
 
-export default function UseRef() {
-  const myRef = useRef(null);
-
-  const focusInput = () => {
-    myRef.current.focus();
+export default function ClickEndScroll() {
+  const ref = useRef(null);
+  const doClick = () => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    myRef.current.focus();
-  }, []);
-
   return (
-    <div>
-      <input type="text" ref={myRef} />
-      <button onClick={focusInput}>Focus Input</button>
-    </div>
+    <>
+      <button onClick={doClick}>Click!</button>
+      <div style={{ height: "400vh" }}></div>
+      <div ref={ref}>Hello World!</div>
+    </>
   );
 }
