@@ -205,6 +205,71 @@ export default function LocalCss() {
 }
 ```
 
+#### 🔺 inline css
+
+```js
+export default function Home() {
+  return (
+    <div style={{ color: "red", backgroundColor: "white", padding: 12, fontSize: "20px" }}>Hello World!</div>
+  )
+}
+```
+
+## 📌 image import
+
+```js
+// import images
+import myImage from "../assets/Code_blxikb.jpg"
+
+export default function Home() {
+  // Using variable
+  const imageWidth = 400
+
+  return (
+    <div>
+      <img src={myImage} alt="" width={imageWidth} />
+    </div>
+  )
+}
+```
+
+## 📌 How to using react icons.
+
+- install react-icons
+
+```bash
+npm i react-icons
+```
+
+- https://react-icons.github.io/react-icons
+
+Import the icons you want to use: After installing the library, you can import specific icons into your component.
+
+```js
+import { BiSolidUserCircle, BiBell } from "react-icons/bi"
+import { SiPubg } from "react-icons/si"
+
+export default function Home() {  
+  return (
+    <div>      
+      <div>
+        <div>
+          <BiSolidUserCircle />
+        </div>
+        <div>
+          <BiBell style={{ color: "blue" }} />
+        </div>
+
+        <div>
+          <SiPubg className="gameIcon" />
+        </div>
+      </div>
+
+    </div>
+  )
+}
+```
+
 ## 📌 Routing
 
 - Install package

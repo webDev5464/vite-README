@@ -4,13 +4,13 @@ export default function UseEffect() {
   const [count, setCount] = useState(0);
   const [calculation, setCalculation] = useState(0);
 
-  useEffect(() => {
-    setCalculation(() => count * 2);
-  }, []);
-
   // useEffect(() => {
   //   setCalculation(() => count * 2);
-  // });
+  // }, []);
+
+  useEffect(() => {
+    setCalculation(() => count * 2);
+  });
 
   return (
     <>
