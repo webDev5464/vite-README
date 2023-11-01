@@ -1,3 +1,4 @@
-- import image end icons
+- simple methods
+- projects
 - nesting router
 - redux

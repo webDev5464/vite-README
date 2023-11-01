@@ -1136,10 +1136,30 @@ export default function About() {
 }
 ```
 
-## 📌 useRedux
+***
+***
+***
+
+## 🧪 Simple Method
+
+- [Local Storage toggleTheme Change](./pages/toggleThemeChangeEndLocalStorage.md)
+
+***
+
+## 🔃 Reference's
+
+[![Learn : JavaScript](https://img.shields.io/badge/LEARN-JavaScript-emreld.svg)](https://github.com/webDev5464/JavaScript-README.git)
+
+[![Learn : NodeJs ExpressJs & MongoDb](https://img.shields.io/badge/LEARN-NodeJs_ExpressJs_&_MongoDb-emreld.svg)](https://github.com/webDev5464/NodeExpressJs-README.git)
+
+***
+***
+***
+
+<!-- ## 📌 useRedux
 
 - install redux
 
 ```bash
 npm i @reduxjs/toolkit react-redux
-```
+``` -->
