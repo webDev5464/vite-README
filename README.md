@@ -368,6 +368,187 @@ function Navigation() {
 export default Navigation;
 ```
 
+#### 🔺 Outlet
+
+For nesting Route
+
+**`App.jsx`**
+
+```js
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Home from "./Components/Home"
+import Service from "./Components/Service"
+import About from "./Components/About"
+import Contact from "./Components/Contact"
+import Navigation from "./Modules/Navigation"
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Navigation />
+      <Routes>
+
+        <Route path="/" element={<Home />}>
+          <Route path="Service" element={<Service />} />
+          <Route path="About" element={<About />} />
+        </Route>
+
+        <Route path="Contact" element={<Contact />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+```
+
+**`Navigation.jsx`**
+
+```js
+import { NavLink } from "react-router-dom";
+
+export default function Navigation() {
+  return (
+    <nav>
+      <ul>
+
+        <li><NavLink to={'/'}>Home</NavLink>
+          <ul>
+            <li><NavLink to={'About'}>About</NavLink></li>
+            <li><NavLink to={'Service'}>Service</NavLink></li>
+          </ul>
+        </li>
+
+        <li><NavLink to={'Contact'}>Contact</NavLink></li>
+      </ul>
+    </nav>
+  )
+}
+```
+
+- This is a basic example of how to use the `<Outlet>` component in React Router v6 for nested routing. You can expand on this structure to create more complex routing scenarios for your application.
+
+**`Home.jsx`**
+
+```js
+import { Outlet } from "react-router";
+
+export default function Home() {
+  return (
+    <div>
+      <h1>Home</h1>
+      <Outlet />
+    </div>
+  )
+}
+```
+
+**`About.jsx`**
+
+```js
+export default function About() {
+  return <h1>About</h1>
+}
+```
+
+**`Service.jsx`**
+
+```js
+export default function Service() {
+  return <h1>Service</h1>
+}
+```
+
+**`Contact.jsx`**
+
+```js
+export default function Contact() {
+  return <h1>Contact</h1>
+}
+```
+
+#### 🔺 Page Navigation using nesting router with outlet
+
+**`App.jsx`**
+
+```js
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom'
+import Home from './Components/Home'
+import About from './Components/About'
+import Service from './Components/Service'
+import Contact from './Components/Contact'
+
+export default function App() {
+
+  return (
+    <BrowserRouter>
+      <Navigation />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        {/*  */}
+        <Route path='About' element={<About />}>
+          <Route index element={<Service />} />
+          <Route path='Contact' element={<Contact />} />
+        </Route>
+        {/*  */}
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+function Navigation() {
+  return (
+    <nav>
+      <ul>
+        <li><NavLink to={'/'}>Home</NavLink></li>
+        <li><NavLink to={'About'}>About</NavLink></li>
+      </ul>
+    </nav>
+  )
+}
+```
+
+**`About.jsx`**
+
+```js
+import { NavLink, Outlet } from "react-router-dom"
+
+export default function About() {
+  return (
+    <>
+      <h1>This is a About page</h1>
+      <PageNavigation />
+      <Outlet />
+    </>
+  )
+}
+
+function PageNavigation() {
+  return (
+    <nav>
+      <ul>
+        <li><NavLink to={'/About'}>Service</NavLink></li>
+        <li><NavLink to={'Contact'}>Contact</NavLink></li>                
+      </ul>
+    </nav>
+  )
+}
+```
+
+**`Service.jsx`**
+
+```js
+export default function Service() {
+  return <h1>This is a Service Page</h1>    
+}
+```
+
+**`Contact.jsx`**
+
+```js
+export default function Contact() {
+  return <h1>This is a Contact page</h1>
+}
+```
+
 ## 📌 What is a Hook?
 
 Hooks allow us to "hook" into React features such as state and lifecycle methods.
