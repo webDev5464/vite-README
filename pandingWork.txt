@@ -1,4 +1,4 @@
 - simple methods
 - projects
-- nesting router
+- Navigate (BrowserRouter method)
 - redux
