@@ -2,3 +2,100 @@
 - projects
 - Navigate (BrowserRouter method)
 - redux
+
+
+import { useState, useEffect } from 'react';
+
+const Todo = () => {
+  const [todos, setTodos] = useState([]);
+  const [task, setTask] = useState('');
+
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem('todos'));
+    if (storedTodos) {
+      setTodos(storedTodos);
+    }
+  }, []);
+
+  const addTodo = () => {
+    if (task) {
+      const newTodo = { id: Date.now(), task };
+      setTodos([...todos, newTodo]);
+      setTask('');
+
+      // Save todos to local storage
+      localStorage.setItem('todos', JSON.stringify([...todos, newTodo]));
+    }
+  };
+
+  const removeTodo = (id) => {
+    const updatedTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(updatedTodos);
+
+    // Update local storage after removing a todo
+    localStorage.setItem('todos', JSON.stringify(updatedTodos));
+  };
+
+  return (
+    <div>
+      <h1>Todo App</h1>
+      <input
+        type="text"
+        placeholder="Add a new task"
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
+      />
+      <button onClick={addTodo}>Add</button>
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            {todo.task}
+            <button onClick={() => removeTodo(todo.id)}>Remove</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default Todo;
+
+// -------------------
+
+import React, { useState } from "react";
+
+export default function Todo() {
+  const [todoInput, setTodoInput] = useState([]);
+  const [todoHeading, setTodoHeading] = useState("");
+  const [todoTitle, setTodoTitle] = useState("");
+
+  const addTodo = () => {
+    if (todoHeading && todoTitle) {
+      const newTodo = { id: Date.now(), heading: todoHeading, title: todoTitle };
+      setTodoInput([...todoInput, newTodo]);
+      setTodoHeading(""); // Clear the input fields
+      setTodoTitle("");
+    }
+  }
+
+  return (
+    <>
+      <div>
+        <input type="text" name="todoHeading" value={todoHeading} onChange={e => setTodoHeading(e.target.value)} />
+        <input type="text" name="todoTitle" value={todoTitle} onChange={e => setTodoTitle(e.target.value)} />
+
+        <button onClick={addTodo}>Submit</button>
+      </div>
+
+      <div>
+        <ul>
+          {todoInput.map(todo => (
+            <li key={todo.id}>
+              <strong>{todo.heading}:</strong> {todo.title}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
+}
