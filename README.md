@@ -1344,3 +1344,6 @@ export default function About() {
 ```bash
 npm i @reduxjs/toolkit react-redux
 ``` -->
+
+# 🪪 License
+[GNU License](/LICENSE) : vite-README  Copyright (C) 2023  Dev_eLoper
